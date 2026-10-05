@@ -2,6 +2,7 @@
 
 # Detect c++, otherwise c
 SRC_CPP = $(wildcard main.cpp)
+BIN_PATH = bin
 
 ifneq ($(SRC_CPP),)
 	SRC = main.cpp
@@ -12,10 +13,10 @@ else
 endif
 
 all:
-	$(CC) $(SRC) -o main
+	$(CC) $(SRC) -o $(BIN_PATH)/main
 
 run: all
-	./main
+	./$(BIN_PATH)/main
 
 clean:
-	rm main
+	rm -rf $(BIN_PATH)
