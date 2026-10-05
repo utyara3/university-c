@@ -3,6 +3,7 @@
 const int MAX_N = 100;
 
 int main() {
-    int a = 0;
-    printf("%d\n", ++a);
+  // test change for check commit
+  int a = 0;
+  printf("%d\n", ++a);
 }
