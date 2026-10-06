@@ -1,8 +1,9 @@
 #include <stdio.h>
 
-const int MAX_N = 100;
+int sum(int a, int b) { return a + b; }
 
 int main() {
-  int a = 0;
-  printf("%d\n", ++a);
+  int a = 5, b = 10;
+  printf("%d\n", sum(a, b));
+  return 0;
 }
