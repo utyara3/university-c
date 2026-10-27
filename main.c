@@ -1,25 +1,36 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-// Пользовательские типы данных
-enum direction {
-  EAST,
-  NORTH,
-  WEST,
-  SOUTH // 0, 1, 2, 3 - auto
+// Структуры
+
+// Определение структуры
+struct point {
+  double x, y;
 };
-enum day_of_week {
-  MON = 1,
-  TUE,
-  WED,
-  THU,
-  FRI,
-  SAT,
-  SUN // 1, 2, ..., 7 - auto
-};
+
+// Определение переменной типа "структура"
+struct point p;
+
+struct point p = {10, 20};
 
 int main() {
-  enum direction dir = SOUTH;
-  enum day_of_week day = TUE;
+  struct point p1 = {.x = 10, .y = 20};
+  printf("%.1lf %.1lf\n", p1.x, p1.y);
 
-  printf("%d %d\n", dir, day); // 3 2
+  struct point *p = malloc(sizeof(*p));
+  if (p == NULL) {
+    return 1;
+  }
+
+  // Обращение к полям структуры
+  // указатель->имя_поля
+
+  p->x = 30; // (*p).x = 30;
+  p->y = 40; // (*p).y = 40
+
+  printf("%.1lf %.1lf\n", p->x, p->y);
+
+  free(p);
+
+  return 0;
 }
