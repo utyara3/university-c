@@ -1,18 +1,25 @@
 #include <stdio.h>
 
-void swap(int *x, int *y);
+// Пользовательские типы данных
+enum direction {
+  EAST,
+  NORTH,
+  WEST,
+  SOUTH // 0, 1, 2, 3 - auto
+};
+enum day_of_week {
+  MON = 1,
+  TUE,
+  WED,
+  THU,
+  FRI,
+  SAT,
+  SUN // 1, 2, ..., 7 - auto
+};
 
 int main() {
-  int x = 10;
-  int y = 20;
+  enum direction dir = SOUTH;
+  enum day_of_week day = TUE;
 
-  swap(&x, &y);
-
-  printf("x: %d, y: %d\n", x, y);
-}
-
-void swap(int *x, int *y) {
-  int temp = *x;
-  *x = *y;
-  *y = temp;
+  printf("%d %d\n", dir, day); // 3 2
 }
