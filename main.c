@@ -1,29 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Объединения
-// Структура данных, состоящая их нескольких именнованных полей,
-// которые занимают одну и ту же область памяти
-//
-// union имя { типа_данных_1 имя_поля_1; тип_данных_2 имя_поля_2; }
+int main() {
+  int n;
 
-// Одновременно можно работать только с одним полем объединения
-// Используются для реалихации переменных типов данных или экономии пямяти
+  if (scanf("%d", &n) != 1 & n <= 0) {
+    printf("you have to type a positive number\n");
+    return 1;
+  }
 
-union variant {
-  int as_int;
-  double as_double;
-};
+  int *p = malloc(n * sizeof *p);
+  if (p == NULL) {
+    return 1;
+  }
 
-int main(void) {
-  union variant var;
-  var.as_int = 10;
+  for (int i = 0; i < n; i++) {
+    p[i] = i + 1;
+  }
 
-  printf("%d\n", var.as_int);
-  var.as_double = 2.1;
+  for (int i = 0; i < n; i++) {
+    printf("%d ", p[i]);
+  }
 
-  printf("%lf\n", var.as_double);
-  printf("%d\n", var.as_int);
+  printf("\n");
 
+  free(p);
   return 0;
 }
