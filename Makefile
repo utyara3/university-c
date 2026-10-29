@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := run
+
 .PHONY: all run clean
 
 # Detect c++, otherwise c
