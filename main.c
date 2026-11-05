@@ -1,35 +1,26 @@
 #include <stdio.h>
-#include <stdlib.h>
+
+typedef struct Student {
+  int id;
+  int course;
+  double score;
+} Student;
+
+void print_student(Student student);
 
 int main(void) {
-  FILE *input = fopen("input.txt", "r");
-
-  if (input == NULL) {
-    fprintf(stderr, "Error: cannot open input.txt\n");
-    return 1;
-  }
-
-  FILE *output = fopen("output.txt", "w");
-
-  if (output == NULL) {
-    fprintf(stderr, "Error: cannot open output.txt\n");
-    fclose(input);
-    return 1;
-  }
-
-  int n;
-
-  if (fscanf(input, "%d", &n) != 1) {
-    fprintf(stderr, "Error: invalid input\n");
-    fclose(input);
-    fclose(output);
-    return 1;
-  }
-
-  fprintf(output, "Read number %d\n", n);
-
-  fclose(input);
-  fclose(output);
+  Student student = {.id = 123, .course = 3, .score = 4.85};
+  print_student(student);
 
   return 0;
+}
+
+void print_student(Student student) {
+  printf("ID: %d, Course: %d, Score: %.2f\n", student.id, student.course,
+         student.score);
+}
+
+void update_student(Student *student, int new_course, double new_score) {
+  student->course = new_course;
+  student->score = new_score;
 }
