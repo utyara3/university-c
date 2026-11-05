@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct Student {
   int id;
@@ -9,8 +10,14 @@ typedef struct Student {
 void print_student(Student student);
 
 int main(void) {
-  Student student = {.id = 123, .course = 3, .score = 4.85};
-  print_student(student);
+  Student *student = malloc(sizeof *student);
+  if (student == NULL) {
+    fprintf(stderr, "Memory allocation failed\n");
+    return 1;
+  }
+
+  free(student);
+  student = NULL;
 
   return 0;
 }
