@@ -1,29 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
+int main(void) {
+  FILE *input = fopen("input.txt", "r");
+
+  if (input == NULL) {
+    fprintf(stderr, "Error: cannot open input.txt\n");
+    return 1;
+  }
+
+  FILE *output = fopen("output.txt", "w");
+
+  if (output == NULL) {
+    fprintf(stderr, "Error: cannot open output.txt\n");
+    fclose(input);
+    return 1;
+  }
+
   int n;
 
-  if (scanf("%d", &n) != 1 & n <= 0) {
-    printf("you have to type a positive number\n");
+  if (fscanf(input, "%d", &n) != 1) {
+    fprintf(stderr, "Error: invalid input\n");
+    fclose(input);
+    fclose(output);
     return 1;
   }
 
-  int *p = malloc(n * sizeof *p);
-  if (p == NULL) {
-    return 1;
-  }
+  fprintf(output, "Read number %d\n", n);
 
-  for (int i = 0; i < n; i++) {
-    p[i] = i + 1;
-  }
+  fclose(input);
+  fclose(output);
 
-  for (int i = 0; i < n; i++) {
-    printf("%d ", p[i]);
-  }
-
-  printf("\n");
-
-  free(p);
   return 0;
 }
