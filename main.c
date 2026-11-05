@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,27 +8,83 @@ typedef struct Student {
   double score;
 } Student;
 
-void print_student(Student student);
+typedef struct Node {
+  Student data;
+  struct Node *next;
+} Node;
 
-int main(void) {
-  Student *student = malloc(sizeof *student);
-  if (student == NULL) {
-    fprintf(stderr, "Memory allocation failed\n");
-    return 1;
+Node *create_node(Student student);
+bool append_node(Node **head, Student student);
+bool remove_node(Node **head, int id);
+void free_list(Node **head);
+
+int main(void) {}
+
+Node *create_node(Student student) {
+  Node *new_node = malloc(sizeof *new_node);
+  if (new_node == NULL) {
+    return NULL;
   }
 
-  free(student);
-  student = NULL;
+  new_node->data = student;
+  new_node->next = NULL;
 
-  return 0;
+  return new_node;
 }
 
-void print_student(Student student) {
-  printf("ID: %d, Course: %d, Score: %.2f\n", student.id, student.course,
-         student.score);
+bool append_node(Node **head, Student student) {
+  Node *new_node = create_node(student);
+  if (new_node == NULL) {
+    return false;
+  }
+
+  if (*head == NULL) {
+    (*head) = new_node;
+  } else {
+    Node *current = *head;
+    while (current->next != NULL) {
+      current = current->next;
+    }
+
+    current->next = new_node;
+  }
+
+  return true;
 }
 
-void update_student(Student *student, int new_course, double new_score) {
-  student->course = new_course;
-  student->score = new_score;
+bool remove_node(Node **head, int id) {
+  Node *current = *head;
+  Node *previous = NULL;
+
+  while (current != NULL && current->data.id != id) {
+    previous = current;
+    current = current->next;
+  }
+
+  if (current == NULL) {
+    // Не нашли такую ноду
+    return false;
+  }
+
+  if (current == *head) {
+    *head = current->next;
+  } else {
+    previous->next = current->next;
+  }
+
+  free(current);
+
+  return true;
+}
+
+void free_list(Node **head) {
+  Node *current = *head;
+
+  while (current != NULL) {
+    Node *next = current->next;
+    free(current);
+    current = next;
+  }
+
+  *head = NULL;
 }
