@@ -4,7 +4,7 @@
 
 # Detect c++, otherwise c
 SRC_CPP = $(wildcard main.cpp)
-BIN_PATH = bin
+BIN_PATH = ../bin
 
 ifneq ($(SRC_CPP),)
 	SRC = main.cpp
